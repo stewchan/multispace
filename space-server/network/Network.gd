@@ -34,5 +34,6 @@ remote func req_player_info(player_json: String) -> void:
 	var player_data = str2var(player_json)
 	print(player_data)
 	players[pid] = player_data
-	rpc("res_update_players", player_json)
-	rpc("res_update_waiting_room")
+	rpc("res_update_player", pid, player_json)
+	rpc("update_waiting_room", players)
+

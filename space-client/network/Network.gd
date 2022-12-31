@@ -54,8 +54,7 @@ remote func res_update_player(pid: int, player_json: String) -> void:
 	var sender_id = get_tree().get_rpc_sender_id()
 	if sender_id == 1 && pid != local_pid:
 		players[pid] = str2var(player_json)
-	res_update_waiting_room()	
 
 
-sync func res_update_waiting_room() -> void:
+sync func update_waiting_room(players: Dictionary) -> void:
 	get_tree().call_group("WaitingRoom", "refresh_players", players)
