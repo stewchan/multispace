@@ -12,6 +12,8 @@ var local_pid = 0
 sync var players = {}
 sync var player_data = {}
 
+var WorldScene: PackedScene = preload("res://world/World.tscn")
+
 
 func _ready() -> void:
 	get_tree().connect("connection_failed", self, "_on_connection_failed")
@@ -58,3 +60,14 @@ remote func res_update_player(pid: int, player_json: String) -> void:
 
 sync func update_waiting_room(players: Dictionary) -> void:
 	get_tree().call_group("WaitingRoom", "refresh_players", players)
+
+
+func load_game() -> void:
+	rpc_id(1, "req_load_world")
+
+
+sync func res_start_game() -> void:
+	print("start game res")
+	var world = WorldScene.instance()
+	get_tree().get_root().add_child(world)
+	get_tree().get_root().get_node("Lobby").queue_free()

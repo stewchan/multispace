@@ -6,6 +6,9 @@ var port = 3234
 var max_players = 32
 
 var players = {}
+var ready_players = 0
+
+var WorldScene: PackedScene = preload("res://world/World.tscn")
 
 
 func _ready() -> void:
@@ -37,3 +40,9 @@ remote func req_player_info(player_json: String) -> void:
 	rpc("res_update_player", pid, player_json)
 	rpc("update_waiting_room", players)
 
+
+remote func req_load_world():
+	ready_players += 1
+	if players.size() > 1 and ready_players >= players.size():
+		rpc("res_start_game")
+		get_tree().get_root().add_child(WorldScene.instance())

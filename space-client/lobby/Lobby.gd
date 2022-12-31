@@ -31,4 +31,6 @@ func show_waiting_room():
 
 
 func _on_ReadyButton_pressed() -> void:
+	Network.load_game()
 	ready_button.disabled = true
+	
