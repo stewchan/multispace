@@ -19,3 +19,12 @@ margin_bottom = 14.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
+
+[node name="Muzzle" type="Position2D" parent="."]
+position = Vector2( 54, 0 )
+
+[node name="CooldownTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]
