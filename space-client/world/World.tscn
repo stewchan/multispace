@@ -40,4 +40,26 @@ tile_data = PoolIntArray( -1, 0, 0, -65536, 0, 0, -65535, 0, 0, -65534, 0, 0, -6
 [node name="Players" type="Node" parent="."]
 
 [node name="PlayerSpawn" type="Position2D" parent="."]
-position = Vector2( 505, 270 )
+position = Vector2( 498, 286 )
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="EnemySpawn" type="Node" parent="."]
+
+[node name="Position2D" type="Position2D" parent="EnemySpawn"]
+position = Vector2( 60, 77 )
+
+[node name="Position2D2" type="Position2D" parent="EnemySpawn"]
+position = Vector2( 944, 101 )
+
+[node name="Position2D3" type="Position2D" parent="EnemySpawn"]
+position = Vector2( 88, 533 )
+
+[node name="Position2D4" type="Position2D" parent="EnemySpawn"]
+position = Vector2( 947, 557 )
+
+[node name="EnemySpawnTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_EnemySpawnTimer_timeout"]
