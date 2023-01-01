@@ -8,7 +8,7 @@ var max_players = 32
 var players = {}
 var ready_players = 0
 
-var WorldScene: PackedScene = preload("res://world/World.tscn")
+const WorldScene: PackedScene = preload("res://world/World.tscn")
 
 
 func _ready() -> void:
