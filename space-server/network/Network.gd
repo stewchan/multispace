@@ -7,6 +7,7 @@ var max_players = 32
 
 var players = {}
 var ready_players = 0
+var min_players = 2
 
 const WorldScene: PackedScene = preload("res://world/World.tscn")
 
@@ -35,14 +36,13 @@ func on_player_disconnected(id: int) -> void:
 remote func req_player_info(player_json: String) -> void:
 	var pid = get_tree().get_rpc_sender_id()
 	var player_data = str2var(player_json)
-	print(player_data)
 	players[pid] = player_data
-	rpc("res_update_player", pid, player_json)
-	rpc("update_waiting_room", players)
+	var players_json = var2str(players)
+	rpc("res_update_players", players_json)
 
 
 remote func req_load_world():
 	ready_players += 1
-	if players.size() > 1 and ready_players >= players.size():
+	if players.size() >= min_players and ready_players >= players.size():
 		rpc("res_start_game")
 		get_tree().get_root().add_child(WorldScene.instance())

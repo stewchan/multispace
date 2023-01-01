@@ -8,8 +8,7 @@ func _ready() -> void:
 
 
 func refresh_players(players: Dictionary):
-	print(players)
 	player_list.clear()
 	for pid in players:
-		var player = players[pid].player_name
-		player_list.add_item(player, null, false)
+		var name = players[pid].player_name
+		player_list.add_item(name, null, false)
