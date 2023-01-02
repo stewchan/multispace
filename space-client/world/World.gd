@@ -33,4 +33,4 @@ remote func res_spawn_enemy(idx, enemy_name) -> void:
 
 
 func _on_EnemySpawnTimer_timeout() -> void:
-	rpc_id(1, "req_spawn_enemy")
+	rpc_id(1, "req_spawn_enemy", spawnpoints.size())

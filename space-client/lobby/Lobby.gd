@@ -13,6 +13,9 @@ func _ready() -> void:
 	selected_IP.text = Network.DEFAULT_IP
 	selected_port.text = str(Network.DEFAULT_PORT)
 	
+#	_on_JoinButton_pressed()
+#	_on_ReadyButton_pressed()
+	
 
 func _on_JoinButton_pressed() -> void:
 	Network.selected_IP = selected_IP.text

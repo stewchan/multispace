@@ -7,3 +7,8 @@ remote func req_update_player(transform: Transform2D) -> void:
 
 remote func req_fire() -> void:
 	rpc("res_spawn_laser")
+
+
+remote func req_destroy_player() -> void:
+	print("req to destroy player")
+	rpc("res_destroy_player")

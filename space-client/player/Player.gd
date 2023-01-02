@@ -13,6 +13,7 @@ onready var name_label = $NameLabel
 onready var camera = $Camera2D
 onready var muzzle = $Muzzle
 onready var cooldown_timer = $CooldownTimer
+onready var collision_polygon = $CollisionPolygon2D
 
 
 func _ready() -> void:
@@ -73,3 +74,14 @@ sync func res_spawn_laser() -> void:
 
 func _on_CooldownTimer_timeout() -> void:
 	can_fire = true
+
+
+func take_damage() -> void:
+	rpc_id(1, "req_destroy_player")
+
+
+sync func res_destroy_player() -> void:
+	set_physics_process(false)
+	collision_polygon.disabled = true
+	hide()
+	name_label.hide()

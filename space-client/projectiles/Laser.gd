@@ -8,7 +8,8 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_Laser_area_entered(area: Area2D) -> void:
-	queue_free()
+	if "Hurtbox" in area.name:
+		queue_free()
 
 
 func _on_Laser_body_entered(body: Node) -> void:
