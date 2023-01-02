@@ -14,6 +14,8 @@ onready var camera = $Camera2D
 onready var muzzle = $Muzzle
 onready var cooldown_timer = $CooldownTimer
 onready var collision_polygon = $CollisionPolygon2D
+onready var laser_audio = $LaserAudio
+onready var death_audio = $DeathAudio
 
 
 func _ready() -> void:
@@ -62,6 +64,7 @@ func set_player_name() -> void:
 func fire() -> void:
 	if Input.is_action_pressed("fire") and can_fire:
 		rpc_id(1, "req_fire")
+		laser_audio.play()
 		can_fire = false
 		cooldown_timer.start()
 
@@ -83,5 +86,8 @@ func take_damage() -> void:
 sync func res_destroy_player() -> void:
 	set_physics_process(false)
 	collision_polygon.disabled = true
+	death_audio.play()
 	hide()
 	name_label.hide()
+
+
