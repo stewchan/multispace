@@ -12,7 +12,7 @@ func _on_Laser_area_entered(area: Area2D) -> void:
 		queue_free()
 
 
-func _on_Laser_body_entered(body: Node) -> void:
+func _on_Laser_body_entered(_body: Node) -> void:
 	queue_free()
 
 

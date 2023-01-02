@@ -23,7 +23,9 @@ func _on_EnemySpawnTimer_timeout() -> void:
 	var enemy = EnemyScene.instance()
 	enemy_count += 1
 	enemy.name = str(enemy_count)
-	var global_position = Vector2(randi() % int(world_size.x), randi() % int(world_size.y))
+	var x = randi() % int(world_size.x)
+	var y = 0 if randi() % 2 == 1 else world_size.y
+	var global_position = Vector2(x, y)
 	var data = {
 		"name": enemy.name,
 		"global_position": global_position,
