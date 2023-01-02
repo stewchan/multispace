@@ -10,5 +10,4 @@ remote func req_fire() -> void:
 
 
 remote func req_destroy_player() -> void:
-	print("req to destroy player")
 	rpc("res_destroy_player")

@@ -31,6 +31,10 @@ func on_player_connected(id: int) -> void:
 
 func on_player_disconnected(id: int) -> void:
 	print("Player disconnected: " + str(id))
+	var player = get_node("/root/World/Players/" + str(id))
+	if player:
+		player.req_destroy_player()
+		player.queue_free()
 
 
 remote func req_player_info(player_json: String) -> void:
@@ -45,4 +49,6 @@ remote func req_load_world():
 	ready_players += 1
 	if players.size() >= min_players and ready_players >= players.size():
 		rpc("res_start_game")
-		get_tree().get_root().add_child(WorldScene.instance())
+		var world = WorldScene.instance()
+		world.name = "World"
+		get_tree().get_root().add_child(world)
