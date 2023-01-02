@@ -12,10 +12,13 @@ func _ready() -> void:
 	player_name.text = Save.save_data["player_name"]
 	selected_IP.text = Network.DEFAULT_IP
 	selected_port.text = str(Network.DEFAULT_PORT)
-#	yield(get_tree(), "idle_frame")
-#	_on_JoinButton_pressed()
-#	_on_ReadyButton_pressed()
 	
+	# For quick debugging
+	yield(get_tree().create_timer(0.1), "timeout")
+	_on_JoinButton_pressed()
+	yield(get_tree().create_timer(0.1), "timeout")
+	_on_ReadyButton_pressed()
+
 
 func _on_JoinButton_pressed() -> void:
 	Network.selected_IP = selected_IP.text

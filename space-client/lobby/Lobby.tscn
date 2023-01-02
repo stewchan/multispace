@@ -98,6 +98,10 @@ text = "Join Game"
 
 [node name="WaitingRoom" parent="." instance=ExtResource( 2 )]
 
+[node name="V" parent="WaitingRoom/C" index="0"]
+margin_top = 263.0
+margin_bottom = 336.0
+
 [node name="ItemList" parent="WaitingRoom/C/V" index="1"]
 items = [ "Player 1", null, false, "Player 2", null, false, "Player 3", null, false, "Player 4", null, false ]
 

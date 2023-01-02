@@ -18,9 +18,9 @@ anchor_bottom = 1.0
 
 [node name="V" type="VBoxContainer" parent="C"]
 margin_left = 412.0
-margin_top = 263.0
+margin_top = 187.0
 margin_right = 612.0
-margin_bottom = 336.0
+margin_bottom = 413.0
 custom_constants/separation = 11
 
 [node name="Title" type="Label" parent="C/V"]

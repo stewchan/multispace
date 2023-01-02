@@ -29,9 +29,10 @@ func on_player_connected(id: int) -> void:
 	print("Player connected: " + str(id))
 
 
-func on_player_disconnected(id: int) -> void:
-	print("Player disconnected: " + str(id))
-	var player = get_node("/root/World/Players/" + str(id))
+func on_player_disconnected(pid: int) -> void:
+	print("Player disconnected: " + str(pid))
+	players.erase(pid)
+	var player = get_node("/root/World/Players/" + str(pid))
 	if player:
 		player.req_destroy_player()
 		player.queue_free()
