@@ -1,5 +1,7 @@
 extends Node
 
+export(int) var max_speed = 80
+
 onready var players = get_tree().get_root().find_node("Players", true, false)
 
 

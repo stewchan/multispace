@@ -5,7 +5,13 @@ var peer = NetworkedMultiplayerENet.new()
 var port = 3234
 var max_players = 32
 
+var world_data = {
+	"players": {},
+	"enemies": {}
+}
 var players = {}
+var enemies = {}
+
 var ready_players = 0
 var min_players = 2
 

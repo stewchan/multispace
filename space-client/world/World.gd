@@ -24,13 +24,11 @@ remote func res_spawn_player(pid: int) -> void:
 	player.position = player_spawn.position
 
 
-remote func res_spawn_enemy(idx, enemy_name) -> void:
-	var spawnpoint = spawnpoints[idx]
+remote func res_spawn_enemy(enemy_json: String) -> void:
+	var data = str2var(enemy_json)
+#	var spawnpoint = spawnpoints[idx]
 	var enemy = EnemyScene.instance()
-	enemy.name = enemy_name
+	enemy.name = data.name
+	enemy.max_speed = data.max_speed
 	enemies.add_child(enemy)
-	enemy.position = spawnpoint.position
-
-
-func _on_EnemySpawnTimer_timeout() -> void:
-	rpc_id(1, "req_spawn_enemy", spawnpoints.size())
+	enemy.global_position = data.global_position
