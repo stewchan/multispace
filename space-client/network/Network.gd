@@ -65,7 +65,8 @@ func launch_game() -> void:
 	rpc_id(1, "req_launch_game")
 
 
-remote func res_init_world(players_json: String) -> void:
+remote func res_init_world(world_json: String, players_json: String) -> void:
+	var world_data = str2var(world_json)
 	var server_players = str2var(players_json)
 	var world = WorldScene.instance()
 	world.name = "World"

@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 export(int) var max_speed = 100
 export(int) var acceleration = 300
-export(float) var friction_weight = 0.05
+export(float) var friction_weight = 0.02
 export(float) var rotation_speed = 3.5
 
 var LaserScene: PackedScene = preload("res://projectiles/Laser.tscn")

@@ -5,7 +5,10 @@ var peer = NetworkedMultiplayerENet.new()
 var port = 3234
 var max_players = 32
 
-var world_instance
+var world_instance = null
+var world_data = {
+	"size": Vector2(1000, 600)
+}
 var players = {}
 
 var ready_players = 0
@@ -56,4 +59,4 @@ remote func req_launch_game():
 		world_instance.name = "World"
 		get_tree().get_root().add_child(world_instance)
 	var pid = get_tree().get_rpc_sender_id()
-	rpc_id(pid, "res_init_world", var2str(players))
+	rpc_id(pid, "res_init_world", var2str(world_data), var2str(players))
