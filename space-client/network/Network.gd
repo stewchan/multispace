@@ -48,13 +48,12 @@ func _on_network_peer_disconnected(id) -> void:
 func register_player() -> void:
 	player_data = Save.save_data
 	players[local_pid] = player_data
-	rpc_id(1, "req_player_info", var2str(player_data))
+	rpc_id(1, "req_register_player", var2str(player_data))
 
 
 remote func res_update_players(players_json: String) -> void:
-	var sender_id = get_tree().get_rpc_sender_id()
-	if sender_id == 1:
-		players = str2var(players_json)
+	players = str2var(players_json)
+	# TODO: Add player to world if world exists
 	update_waiting_room()
 
 
@@ -62,11 +61,34 @@ func update_waiting_room() -> void:
 	get_tree().call_group("WaitingRoom", "refresh_players", players)
 
 
-func load_game() -> void:
-	rpc_id(1, "req_load_world")
+func launch_game() -> void:
+	rpc_id(1, "req_launch_game")
 
 
-remote func res_start_game() -> void:
+remote func res_init_world(players_json: String) -> void:
+	var server_players = str2var(players_json)
 	var world = WorldScene.instance()
-	get_tree().get_root().add_child(world)
+	world.name = "World"
+	get_tree().root.add_child(world)
+	# Update list of players
+	players = server_players
+	for pid in server_players:
+		world.spawn_player(pid)
 	get_tree().get_root().get_node("Lobby").queue_free()
+
+
+# To be called by existing players
+#remote func res_add_player(pid: int, player_json: String) -> void:
+#	if not players[pid]:
+#		players[pid] = str2var(player_json)
+#	var world = get_node("/root/World")
+#	if not world.get_node_or_null("Players" + str(pid)):
+#		print("res-add-player: " + str(players))
+#		world.spawn_player(pid)
+
+
+remote func res_remove_player(pid: int) -> void:
+	players.erase(pid)
+	var player = get_node("/root/World/Players/" + str(pid))
+	if player:
+		player.queue_free()

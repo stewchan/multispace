@@ -9,7 +9,7 @@ onready var ready_button = $WaitingRoom/C/V/ReadyButton
 
 
 func _ready() -> void:
-	player_name.text = Save.save_data["player_name"]
+	player_name.text = Save.save_data["name"]
 	selected_IP.text = Network.DEFAULT_IP
 	selected_port.text = str(Network.DEFAULT_PORT)
 	
@@ -37,6 +37,6 @@ func show_waiting_room():
 
 
 func _on_ReadyButton_pressed() -> void:
-	Network.load_game()
+	Network.launch_game()
 	ready_button.disabled = true
 	

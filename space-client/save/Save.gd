@@ -3,9 +3,7 @@ extends Node
 # TODO: put saves on a server
 const SAVEGAME_FILE = "user://savegame.json"
 
-var save_data : Dictionary = {
-	"player_name" : "",
-}
+var save_data : Dictionary = {}
 
 
 func _ready() -> void:
@@ -16,7 +14,7 @@ func get_data() -> Dictionary:
 	var file = File.new()
 	var data = {}
 	if not file.file_exists(SAVEGAME_FILE):
-		data = {"player_name": "Player" + str(randi() % 100)}
+		data = {"name": "Player" + str(randi() % 100)}
 		save_game(data)
 	else:
 		file.open(SAVEGAME_FILE, File.READ)

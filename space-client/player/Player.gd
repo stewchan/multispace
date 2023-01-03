@@ -24,8 +24,7 @@ onready var death_audio = $DeathAudio
 
 func _ready() -> void:
 	name_label.set_as_toplevel(true)
-	print(Network.players)
-	set_player_name()
+#	set_player_name()
 
 
 # only master player calls this
@@ -64,7 +63,7 @@ func apply_movement(delta: float) -> void:
 
 
 func set_player_name() -> void:
-	name_label.text = Network.players[int(name)]["player_name"]
+	name_label.text = Network.players[int(name)].name
 
 
 func fire() -> void:

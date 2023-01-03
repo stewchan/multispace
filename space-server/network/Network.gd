@@ -5,12 +5,8 @@ var peer = NetworkedMultiplayerENet.new()
 var port = 3234
 var max_players = 32
 
-var world_data = {
-	"players": {},
-	"enemies": {}
-}
+var world_instance
 var players = {}
-var enemies = {}
 
 var ready_players = 0
 var min_players = 2
@@ -38,13 +34,13 @@ func on_player_connected(id: int) -> void:
 func on_player_disconnected(pid: int) -> void:
 	print("Player disconnected: " + str(pid))
 	players.erase(pid)
-	var player = get_node("/root/World/Players/" + str(pid))
+	var player = get_node_or_null("/root/World/Players/" + str(pid))
 	if player:
-		player.req_destroy_player()
 		player.queue_free()
+		rpc("res_remove_player", pid)		
 
 
-remote func req_player_info(player_json: String) -> void:
+remote func req_register_player(player_json: String) -> void:
 	var pid = get_tree().get_rpc_sender_id()
 	var player_data = str2var(player_json)
 	players[pid] = player_data
@@ -52,10 +48,12 @@ remote func req_player_info(player_json: String) -> void:
 	rpc("res_update_players", players_json)
 
 
-remote func req_load_world():
+remote func req_launch_game():
 	ready_players += 1
-	if players.size() >= min_players and ready_players >= players.size():
-		rpc("res_start_game")
-		var world = WorldScene.instance()
-		world.name = "World"
-		get_tree().get_root().add_child(world)
+	# First player to join creates the world
+	if not world_instance:
+		world_instance = WorldScene.instance()
+		world_instance.name = "World"
+		get_tree().get_root().add_child(world_instance)
+	var pid = get_tree().get_rpc_sender_id()
+	rpc_id(pid, "res_init_world", var2str(players))
